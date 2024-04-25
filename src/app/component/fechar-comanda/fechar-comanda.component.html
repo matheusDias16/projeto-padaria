@@ -1,0 +1,24 @@
+<table>
+    <tr>
+      <th>Código</th>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Preço</th>
+    </tr>
+    <tr *ngFor="let prod of arrayComandas.produtos">
+      <td>{{ prod.idProduto }}</td>
+      <td>{{ findProduto(prod.idProduto).produto }}</td>
+      <td>{{ prod.quantidade }}</td>
+      <td>R${{ findProduto(prod.idProduto).preco.toFixed(2) }}</td>
+    </tr>
+  </table>
+  
+  <hr style="margin: 15px 0;">
+  
+  <h2>Preço total: R${{ precoTotal().toFixed(2) }}</h2>
+  
+  <hr style="margin: 15px 0;">
+  
+  <button type="button" (click)="fechaComanda()">
+    Fechar comanda
+  </button>

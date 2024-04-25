@@ -1,0 +1,100 @@
+ <section>
+  <div class="contComandas">
+    <ng-container *ngFor="let comanda of arrayComandas">
+      <h2 (click)="abriModalAdicionar(comanda.id)">
+        <h3>{{ comanda.id }} </h3>
+      </h2>
+    </ng-container>
+  </div>
+  <div class="contBotoes">
+    <button type="button" class="fechar" (click)="fecharComandaSwal()">
+      Fechar comanda
+    </button>
+    <button type="button" class="abrir" (click)="criarComanda()">
+      Abrir comanda
+    </button>
+  </div>
+</section>
+
+<div class="modal" *ngIf="modalAberto">
+
+  <!-- Modal de adicionar produto -->
+  <div class="modal-content" *ngIf="modalAdicionar">
+    <span  class="close" (click)="fecharModal()">&times;</span>
+    <h1 >
+      Adicionar na comanda 
+    </h1>
+
+    <form [formGroup]="formComanda">
+      <!-- <div class="contInput">
+        <label>
+          Produto
+          <select formControlName="idProduto">
+            <option value=""></option>
+            <option *ngFor="let prod of arrayProdutos" value="{{ prod.id }}">
+              {{ prod.produto }}
+            </option>
+          </select>
+        </label>
+      </div> -->
+
+      <div>
+        <mat-form-field>
+          <mat-label>
+            Produto
+          </mat-label>
+          <mat-select formControlName="idProduto">
+            <ng-container *ngFor="let prod of arrayProdutos">
+              <mat-option [value]="prod.id">
+                {{ prod.produto }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="contInput">
+        <label>
+          Quantidade
+          <input type="number" formControlName="quantidade" />
+        </label>
+      </div> -->
+      <div>
+        <mat-form-field>
+          <mat-label>
+            Quantidade
+          </mat-label>
+          <input matInput type="number" formControlName="quantidade" placeholder="Informe a quantidade de itens" />
+        </mat-form-field>
+      </div>
+
+
+    </form>
+
+    <button type="button" [disabled]="formComanda.status == 'INVALID'" (click)="adicionaProduto()">
+      Adicionar
+    </button>
+  </div>
+
+  <!-- Modal de fechar comanda -->
+  <div class="modal-content" *ngIf="!modalAdicionar">
+    <span class="close" (click)="fecharModal()">&times;</span>
+    <h1>
+      Fechar na comanda
+    </h1>
+
+    <form [formGroup]="formFechar">
+      <div class="contInput">
+        <label>
+          Número da Comanda
+          <input type="number" formControlName="numComanda" />
+        </label>
+      </div>
+    </form>
+
+    <button type="button" [disabled]="formFechar.status == 'INVALID'" (click)="fecharComanda()">
+      Fechar
+    </button>
+  </div>
+
+</div>
